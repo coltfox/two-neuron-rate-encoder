@@ -10,13 +10,6 @@ N_STEPS = int(T / DT)
 timesteps = np.arange(0, T, DT)
 inp = np.random.normal(loc=-0.5, size=N_STEPS)
 
-# Plot input signal
-plt.figure()
-plt.title("Input Signal")
-plt.xlabel("t")
-plt.ylabel("x")
-plt.plot(timesteps, inp)
-
 # Separate positive and negative signals
 pos_signal = inp.copy()
 pos_signal[pos_signal < 0] = 0
@@ -30,6 +23,26 @@ encoder_neg = RateEncoder(n_neurons=1, encoders=-1)
 
 spikes_pos = encoder_pos.encode(pos_signal).reshape(-1, 1)
 spikes_neg = encoder_neg.encode(neg_signal).reshape(-1, 1)
+
+# Plot input signal
+plt.figure()
+plt.title("Input Signal")
+plt.xlabel("t")
+plt.ylabel("x")
+plt.plot(timesteps, inp)
+
+# Plot positive and negative portions of the input signal
+plt.figure()
+plt.title("Input Signal (+)")
+plt.xlabel("t")
+plt.ylabel("x")
+plt.plot(timesteps, pos_signal)
+
+plt.figure()
+plt.title("Input Signal (-)")
+plt.xlabel("t")
+plt.ylabel("x")
+plt.plot(timesteps, neg_signal)
 
 # Plot spikes
 plt.figure()
